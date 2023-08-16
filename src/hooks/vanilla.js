@@ -19,6 +19,7 @@ const createStoreImpl = (createState) => {
   const getState = () => state;
 
   const subscribe = (listener) => {
+    // console.log("subscribe", listener);
     listeners.add(listener);
     // Unsubscribe
     return () => listeners.delete(listener);

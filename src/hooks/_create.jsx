@@ -1,10 +1,7 @@
 import { useDebugValue } from "react";
 
-import useSyncExternalStoreExports from "use-sync-external-store/shim/with-selector";
-
-const { useSyncExternalStoreWithSelector } = useSyncExternalStoreExports;
-
 import { createStore } from "./vanilla";
+import useSyncExternalStoreWithSelector from "./useSyncExternalStoreWithSelector";
 
 const useStore = (api, selector, equalityFn) => {
   const slice = useSyncExternalStoreWithSelector(
@@ -21,12 +18,12 @@ const useStore = (api, selector, equalityFn) => {
 
 const createImpl = (createState) => {
   const api =
-    typeof createState === "function" ? createStore(createState) : createState;
+    typeof createState == "function" ? createStore(createState) : createState;
   const useBoundState = (selector, equalityFn) =>
     useStore(api, selector, equalityFn);
 
   Object.assign(useBoundState, api);
-  // console.log("createImpl", useBoundState, api);
+  // console.log("createImpl", createState);
   return useBoundState;
 };
 

@@ -3,7 +3,12 @@ export const shallow = (objA, objB) => {
     return true;
   }
 
-  if (typeof objA !== "object" || objA === null || typeof objB !== "object" || objB === null) {
+  if (
+    typeof objA !== "object" ||
+    objA === null ||
+    typeof objB !== "object" ||
+    objB === null
+  ) {
     return false;
   }
 
@@ -40,7 +45,10 @@ export const shallow = (objA, objB) => {
   }
 
   for (let i = 0; i < keysA.length; i++) {
-    if (!Object.prototype.hasOwnProperty.call(objB, keysA[i]) || !Object.is(objA[keysA[i]], objB[keysA[i]])) {
+    if (
+      !Object.prototype.hasOwnProperty.call(objB, keysA[i]) ||
+      !Object.is(objA[keysA[i]], objB[keysA[i]])
+    ) {
       return false;
     }
   }
