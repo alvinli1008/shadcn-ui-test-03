@@ -32,72 +32,72 @@ function useSyncExternalStoreWithSelector(
     inst = instRef.current;
   }
 
-  var _useMemo = useMemo(() => {
-    var hasMemo = false;
-    var memoizedSnapshot;
-    var memoizedSelection;
-    var memoizedSelector = function (nextSnapshot) {
-      if (!hasMemo) {
-        hasMemo = true;
-        memoizedSnapshot = nextSnapshot;
+  var _useMemo = useMemo(
+    function () {
+      if (!selector && !isEqual) {
+        return [getSnapshot, getServerSelection];
+      }
 
-        var _nextSelection = selector(nextSnapshot);
+      let hasMemo = false;
+      let memoizedSnapshot;
+      let memoizedSelection;
+      const memoizedSelector = function (nextSnapshot) {
+        if (!hasMemo) {
+          hasMemo = true;
+          memoizedSnapshot = nextSnapshot;
 
-        if (isEqual !== undefined) {
-          if (inst.hasValue) {
-            var currentSelection = inst.value;
+          var _nextSelection = selector(nextSnapshot);
 
-            if (isEqual(currentSelection, _nextSelection)) {
-              memoizedSelection = currentSelection;
-              return currentSelection;
+          if (isEqual !== undefined) {
+            if (inst.hasValue) {
+              var currentSelection = inst.value;
+
+              if (isEqual(currentSelection, _nextSelection)) {
+                memoizedSelection = currentSelection;
+                return currentSelection;
+              }
             }
           }
+
+          memoizedSelection = _nextSelection;
+          return _nextSelection;
         }
 
-        memoizedSelection = _nextSelection;
-        return _nextSelection;
-      }
+        var prevSnapshot = memoizedSnapshot;
+        var prevSelection = memoizedSelection;
+        if (objectIs(prevSnapshot, nextSnapshot)) {
+          return prevSelection;
+        }
 
-      var prevSnapshot = memoizedSnapshot;
-      var prevSelection = memoizedSelection;
-      if (objectIs(prevSnapshot, nextSnapshot)) {
-        return prevSelection;
-      }
+        var nextSelection = selector(nextSnapshot);
 
-      var nextSelection = selector(nextSnapshot);
+        if (isEqual !== undefined && isEqual(prevSelection, nextSelection)) {
+          return prevSelection;
+        }
 
-      if (isEqual !== undefined && isEqual(prevSelection, nextSelection)) {
-        return prevSelection;
-      }
+        memoizedSnapshot = nextSnapshot;
+        memoizedSelection = nextSelection;
+        return nextSelection;
+      };
 
-      memoizedSnapshot = nextSnapshot;
-      memoizedSelection = nextSelection;
-      return nextSelection;
-    };
+      var maybeGetServerSnapshot =
+        getServerSnapshot === undefined ? null : getServerSnapshot;
 
-    var maybeGetServerSnapshot =
-      getServerSnapshot == undefined ? null : getServerSnapshot;
+      var getSnapshotWithSelector = function () {
+        return memoizedSelector(getSnapshot());
+      };
 
-    var getSnapshotWithSelector = function () {
-      return memoizedSelector(getSnapshot());
-    };
+      var getServerSnapshotWithSelector =
+        maybeGetServerSnapshot == null
+          ? undefined
+          : function () {
+              return memoizedSelection(maybeGetServerSnapshot());
+            };
 
-    var getServerSnapshotWithSelector =
-      maybeGetServerSnapshot == null
-        ? undefined
-        : function () {
-            return memoizedSelection(maybeGetServerSnapshot());
-          };
-
-    return [getSnapshotWithSelector, getServerSnapshotWithSelector];
-  }, [
-    getSnapshot,
-    getServerSnapshot,
-    selector,
-    isEqual,
-    // inst.hasValue,
-    // inst.value,
-  ]);
+      return [getSnapshotWithSelector, getServerSnapshotWithSelector];
+    },
+    [getSnapshot, getServerSnapshot, selector, isEqual]
+  );
 
   var getSelection = _useMemo[0];
   var getServerSelection = _useMemo[1];

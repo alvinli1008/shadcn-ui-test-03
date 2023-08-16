@@ -27,10 +27,12 @@ const Test01Children = memo(() => {
 Test01Children.displayName = "Test01Children";
 
 const Test01 = memo(() => {
-  const [time, setState] = _useGlobal(
-    (state) => [state.time, state.setState],
-    shallow
-  );
+  // const [time, setState] = _useGlobal(
+  //   (state) => [state.time, state.setState],
+  //   shallow
+  // );
+
+  const { time, setState } = _useGlobal();
 
   console.log("Test01");
   return (

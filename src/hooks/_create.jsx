@@ -18,15 +18,15 @@ const useStore = (api, selector, equalityFn) => {
 
 const createImpl = (createState) => {
   const api =
-    typeof createState == "function" ? createStore(createState) : createState;
+    typeof createState === "function" ? createStore(createState) : createState;
   const useBoundState = (selector, equalityFn) =>
     useStore(api, selector, equalityFn);
 
   Object.assign(useBoundState, api);
-  // console.log("createImpl", createState);
+  // console.log("createImpl", useBoundState, api);
   return useBoundState;
 };
 
-export const create = (createState) => {
+export const _create = (createState) => {
   return createState ? createImpl(createState) : createImpl;
 };
