@@ -1,27 +1,25 @@
-import { Button } from './components/ui/button'
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu"
+import { Button } from "./components/ui/button";
+import { shallow } from "./hooks/shallow";
+import useGlobal from "./hooks/useGlobal";
 
 function App() {
+  const state = useGlobal((state) => state);
+
+  console.log("app", state);
 
   return (
     <>
-      <Button>button</Button>
-      <ContextMenu>
-     <ContextMenuTrigger>Right click</ContextMenuTrigger>
-        <ContextMenuContent>
-          <ContextMenuItem>Profile</ContextMenuItem>
-          <ContextMenuItem>Billing</ContextMenuItem>
-          <ContextMenuItem>Team</ContextMenuItem>
-          <ContextMenuItem>Subscription</ContextMenuItem>
-        </ContextMenuContent>
-      </ContextMenu>
+      {/* {state.current} */}
+      <Button
+        onClick={() => {
+          console.log("click", state.current);
+          // state.setState({ current: 2 });
+        }}
+      >
+        button
+      </Button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
