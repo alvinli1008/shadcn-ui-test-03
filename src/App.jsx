@@ -3,24 +3,31 @@ import { shallow } from "./hooks/shallow";
 import useGlobal from "./hooks/useGlobal";
 
 import Current from "./components/Current";
+import { useState } from "react";
 
 function App() {
-  const state = useGlobal((state) => state, shallow);
+  const [current, setState] = useGlobal((state) => [
+    state.current,
+    state.setState,
+  ], shallow);
+  const [count, setCount] = useState(0);
 
-  console.log("app", state);
+  console.log("app", current);
 
   return (
-    <>
-      <p>{state.current}</p>
+    <div className="flex items-center justify-center flex-col p-10">
+      <p>{count}</p>
+      <p>current --- {current}</p>
       <Button
         onClick={() => {
-          state.setState({ current: state.current + 1 });
+          setCount((prev) => prev + 1);
+          setState({ current: current + 1 });
         }}
       >
         button
       </Button>
       <Current></Current>
-    </>
+    </div>
   );
 }
 
