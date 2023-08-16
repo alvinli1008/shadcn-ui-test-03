@@ -5,7 +5,7 @@ const initialGlobalState = {
   current: 1,
 }
 
-const useGlobal = create((get, set) => ({
+const useGlobal = create((set, get) => ({
   ...initialGlobalState,
   setState: update => set({ ...get(), ...update })
 }));

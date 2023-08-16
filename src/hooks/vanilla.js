@@ -1,5 +1,4 @@
-
-const createStoreImpl = createState => {
+const createStoreImpl = (createState) => {
   let state;
   const listeners = new Set();
 
@@ -8,16 +7,20 @@ const createStoreImpl = createState => {
 
     if (!Object.is(nextState, state)) {
       const previousState = state;
-      state = replace ?? typeof nextState !== "object" ? nextState : Object.assign({}, state, nextState);
+      state =
+        replace ?? typeof nextState !== "object"
+          ? nextState
+          : Object.assign({}, state, nextState);
 
-      listeners.forEach(listener => listener(state, previousState));
+      listeners.forEach((listener) => listener(state, previousState));
     }
   };
 
   const getState = () => state;
 
-  const subscribe = listener => {
+  const subscribe = (listener) => {
     listeners.add(listener);
+    // Unsubscribe
     return () => listeners.delete(listener);
   };
 
@@ -27,7 +30,10 @@ const createStoreImpl = createState => {
 
   const api = { setState, getState, subscribe, destroy };
   state = createState(setState, getState, api);
+
+  // console.log("createStoreImpl", state, listeners, api, createState);
   return api;
 };
 
-export const createStore = createState => (createState ? createStoreImpl(createState) : createStoreImpl);
+export const createStore = (createState) =>
+  createState ? createStoreImpl(createState) : createStoreImpl;

@@ -3,17 +3,16 @@ import { shallow } from "./hooks/shallow";
 import useGlobal from "./hooks/useGlobal";
 
 function App() {
-  const state = useGlobal((state) => state);
+  const state = useGlobal((state) => state, shallow);
 
   console.log("app", state);
 
   return (
     <>
-      {/* {state.current} */}
+      <p>{state.current}</p>
       <Button
         onClick={() => {
-          console.log("click", state.current);
-          // state.setState({ current: 2 });
+          state.setState({ current: state.current + 1 });
         }}
       >
         button
