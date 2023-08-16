@@ -2,6 +2,8 @@ import { Button } from "./components/ui/button";
 import { shallow } from "./hooks/shallow";
 import useGlobal from "./hooks/useGlobal";
 
+import Current from "./components/Current";
+
 function App() {
   const state = useGlobal((state) => state, shallow);
 
@@ -17,6 +19,7 @@ function App() {
       >
         button
       </Button>
+      <Current></Current>
     </>
   );
 }
