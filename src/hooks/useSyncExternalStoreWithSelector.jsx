@@ -34,7 +34,7 @@ function useSyncExternalStoreWithSelector(
 
   var _useMemo = useMemo(
     function () {
-      if (!selector && !isEqual) {
+      if (selector == undefined) {
         return [getSnapshot, getServerSnapshot];
       }
 
