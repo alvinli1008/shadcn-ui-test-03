@@ -5,9 +5,9 @@ const initialGlobalState = {
   num: 0,
 };
 
-const useGlobal = create((set, get) => ({
+const useGlobal = create((set) => ({
   ...initialGlobalState,
-  setState: (update) => set({ ...get(), ...update }),
+  setState: (update) => set((state) => ({ ...state, ...update })),
 }));
 
 export default useGlobal;
