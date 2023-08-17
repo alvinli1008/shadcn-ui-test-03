@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Button } from "./components/ui/button";
 import Num from "./components/Num";
 import Current from "./components/Current";
-import { Button } from "./components/ui/button";
+import Test01 from "./components/Test01";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +22,8 @@ function App() {
       <Current></Current>
       <p className="py-4"></p>
       <Num></Num>
+      <p className="py-4"></p>
+      <Test01></Test01>
     </div>
   );
 }
