@@ -1,7 +1,8 @@
 import { memo } from "react";
-import { shallow } from "../hooks/shallow";
 import useGlobal from "../hooks/useGlobal";
 import { Button } from "./ui/button";
+
+import { isEqual as shallow } from "lodash";
 
 function Num() {
   const [num, setState] = useGlobal(
