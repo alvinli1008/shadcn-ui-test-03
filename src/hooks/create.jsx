@@ -1,10 +1,7 @@
 import { useDebugValue } from "react";
 
-import useSyncExternalStoreExports from "use-sync-external-store/shim/with-selector";
-
-const { useSyncExternalStoreWithSelector } = useSyncExternalStoreExports;
-
 import { createStore } from "./vanilla";
+import useSyncExternalStoreWithSelector from "./useSyncExternalStoreWithSelector";
 
 const useStore = (api, selector, equalityFn) => {
   const slice = useSyncExternalStoreWithSelector(

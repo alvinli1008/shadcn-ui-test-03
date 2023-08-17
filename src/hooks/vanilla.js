@@ -32,7 +32,7 @@ const createStoreImpl = (createState) => {
   const api = { setState, getState, subscribe, destroy };
   state = createState(setState, getState, api);
 
-  // console.log("createStoreImpl", state, listeners, api, createState);
+  // console.log("createStoreImpl", state, listeners);
   return api;
 };
 

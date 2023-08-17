@@ -3,13 +3,13 @@ import useGlobal from "../hooks/useGlobal";
 import { memo } from "react";
 import { Button } from "./ui/button";
 
-function Current() {
+function Num() {
   const [num, setState] = useGlobal(
     (state) => [state.num, state.setState],
     shallow
   );
 
-  console.log("current");
+  console.log("Num");
   return (
     <div>
       num {num}
@@ -24,6 +24,6 @@ function Current() {
   );
 }
 
-Current.displayName = "Current";
+Num.displayName = "Num";
 
-export default memo(Current);
+export default memo(Num);
