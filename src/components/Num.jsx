@@ -12,7 +12,7 @@ function Num() {
   console.log("Num");
   return (
     <div>
-      num {num}
+      <p>num --- {num}</p>
       <Button
         onClick={() => {
           setState({ num: num + 1 });

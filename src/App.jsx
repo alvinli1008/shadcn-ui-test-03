@@ -1,27 +1,25 @@
-import { Button } from "./components/ui/button";
-import { shallow } from "./hooks/shallow";
-import useGlobal from "./hooks/useGlobal";
-
 import Num from "./components/Num";
+import Current from "./components/Current";
+import { useState } from "react";
+import { Button } from "./components/ui/button";
 
 function App() {
-  const [current, setState] = useGlobal(
-    (state) => [state.current, state.setState],
-    shallow
-  );
-
-  console.log("app", current);
+  const [count, setCount] = useState(0);
+  console.log("app");
 
   return (
     <div className="flex items-center justify-center flex-col p-10">
-      <p>current --- {current}</p>
+      count --- {count}
       <Button
         onClick={() => {
-          setState({ current: current + 1 });
+          setCount((prev) => prev + 1);
         }}
       >
-        button
+        count++
       </Button>
+      <p className="py-4"></p>
+      <Current></Current>
+      <p className="py-4"></p>
       <Num></Num>
     </div>
   );
