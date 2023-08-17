@@ -1,6 +1,6 @@
+import { useState } from "react";
 import Num from "./components/Num";
 import Current from "./components/Current";
-import { useState } from "react";
 import { Button } from "./components/ui/button";
 
 function App() {
