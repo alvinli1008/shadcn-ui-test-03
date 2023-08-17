@@ -19,7 +19,6 @@ const createStoreImpl = (createState) => {
   const getState = () => state;
 
   const subscribe = (listener) => {
-    // console.log("subscribe", listener);
     listeners.add(listener);
     // Unsubscribe
     return () => listeners.delete(listener);
@@ -32,7 +31,6 @@ const createStoreImpl = (createState) => {
   const api = { setState, getState, subscribe, destroy };
   state = createState(setState, getState, api);
 
-  // console.log("createStoreImpl", state, listeners);
   return api;
 };
 

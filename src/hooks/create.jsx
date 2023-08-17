@@ -24,7 +24,6 @@ const createImpl = (createState) => {
     useStore(api, selector, equalityFn);
 
   Object.assign(useBoundState, api);
-  // console.log("createImpl", useBoundState);
   return useBoundState;
 };
 
