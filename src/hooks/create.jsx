@@ -16,6 +16,7 @@ const useStore = (api, selector, equalityFn) => {
   return slice;
 };
 
+// 柯里化函数
 const createImpl = (createState) => {
   const api =
     typeof createState === "function" ? createStore(createState) : createState;
@@ -23,10 +24,9 @@ const createImpl = (createState) => {
     useStore(api, selector, equalityFn);
 
   Object.assign(useBoundState, api);
-  // console.log("createImpl", useBoundState, api);
+  // console.log("createImpl", useBoundState);
   return useBoundState;
 };
 
-export const create = (createState) => {
-  return createState ? createImpl(createState) : createImpl;
-};
+export const create = (createState) =>
+  createState ? createImpl(createState) : createImpl;
